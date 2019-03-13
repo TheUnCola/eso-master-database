@@ -1,0 +1,26 @@
+{
+  "name": "eso-master-database",
+  "version": "0.0.1",
+  "description": "Master Database for any exported data from eso",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheUnCola/eso-master-database.git"
+  },
+  "author": "TheUnCola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheUnCola/eso-master-database/issues"
+  },
+  "homepage": "https://github.com/TheUnCola/eso-master-database#readme",
+  "dependencies": {
+    "firebase": "^5.8.6",
+    "firebase-admin": "^7.0.0",
+    "moment": "^2.24.0",
+    "node-gyp": "^3.8.0",
+    "unix-timestamp": "^0.2.0"
+  }
+}
