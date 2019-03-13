@@ -8,14 +8,6 @@ let lineReader = require('readline').createInterface({
 
 let firebase = require("firebase-admin");
 
-/*let config = {
-    apiKey: "AIzaSyD54XbMUHkUzh5pGraM2QgOF3CoNubYmmg",
-    authDomain: "numenor-database.firebaseapp.com",
-    databaseURL: "https://numenor-database.firebaseio.com"
-};*/
-
-//let config = require("./config");
-
 let secret = require("./secret");
 
 firebase.initializeApp({
