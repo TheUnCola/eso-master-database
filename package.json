@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/TheUnCola/eso-master-database#readme",
   "dependencies": {
+    "bluebird": "^3.5.3",
     "firebase": "^5.8.6",
     "firebase-admin": "^7.0.0",
     "moment": "^2.24.0",
     "node-gyp": "^3.8.0",
-    "unix-timestamp": "^0.2.0"
+    "unix-timestamp": "^0.2.0",
+    "uuid": "^3.3.2"
   }
 }
