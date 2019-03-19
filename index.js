@@ -1,5 +1,6 @@
 let helper = require('./helper.js'),
-    firebase = require('./firebase.js');
+    firebase = require('./firebase.js'),
+    fs = require('fs');
 
 let getAndUpdateData = async function() {
     let exports = await helper.readExport('../../SavedVariables/DepositExporter.lua');
@@ -8,6 +9,9 @@ let getAndUpdateData = async function() {
     console.log(JSON.stringify(entries, null, 2));
 
     if(Object.keys(entries).length > 0) await firebase.updateDB(entries);
-}
+};
 
-getAndUpdateData();
+fs.watchFile('../../SavedVariables/DepositExporter.lua', (curr, prev) => {
+    console.log('A change was made to DepositExporter');
+    getAndUpdateData();
+});
