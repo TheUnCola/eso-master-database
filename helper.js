@@ -46,7 +46,7 @@ let Helper = {
                 let dbEntry = dbEntries[entry];
 
                 // If already exists in DB, then we'll ignore to avoid duplicates
-                if(exports[i].name == dbEntry.name && exports[i].amount == dbEntry.amount && exports[i].timestamp == dbEntry.timestamp) {
+                if(exports[i].name == dbEntry.name && exports[i].amount == dbEntry.amount && (exports[i].timestamp == dbEntry.timestamp || exports[i].timestamp == dbEntry.timestamp-1 || exports[i].timestamp == dbEntry.timestamp+1)) {
                     console.log(exports[i].name + ' & ' + exports[i].timestamp + ' exists!');
                     entryExists = true;
                 }
