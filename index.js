@@ -4,9 +4,12 @@ let helper = require('./helper.js'),
 
 let getAndUpdateData = async function() {
     let exports = await helper.readExport('../../SavedVariables/DepositExporter.lua');
+    let dbRecords = await firebase.getDeposits();
+    let dupCheck = helper.checkForDuplicates(exports,dbRecords);
+    let entries = dupCheck.entries, duplicates = dupCheck.duplicates;
+    //console.log(JSON.stringify(entries, null, 2));
 
-    let entries = helper.checkForDuplicates(exports,await firebase.getDeposits());
-    console.log(JSON.stringify(entries, null, 2));
+    helper.logOutput(dbRecords, exports, entries, duplicates);
 
     if(Object.keys(entries).length > 0) await firebase.updateDB(entries);
 };

@@ -16,7 +16,7 @@ let Firebase = {
         let db = this.initializeDB();
 
         return new Promise(function (resolve, reject) {
-            db.ref('/deposits').once("value", function(snapshot) {
+            db.ref('/numenor/deposits').once("value", function(snapshot) {
                 firebase.app().delete();
                 resolve(snapshot.val());
                 }, function (errorObject) {
