@@ -5,7 +5,7 @@ let ut = require('unix-timestamp'),
     fs = require('fs');
 
 let Helper = {
-    readExport: function(file) {
+    readDepositExport: function(file) {
         let lineReader = require('readline').createInterface({
             input: require('fs').createReadStream(file)
         });
@@ -61,6 +61,40 @@ let Helper = {
         }
 
         return { "entries": entries, "duplicates": duplicates };
+    },
+
+    readBankExport: function(file) {
+        let entries = {};
+        let lineReader = require('readline').createInterface({
+            input: require('fs').createReadStream(file)
+        });
+        return new Promise(function (resolve, reject) {
+            let readNow = false, exports = [], name = "", qty = 0, bracketCount = 0;
+            lineReader.on('line', function (line) {
+                if(line.includes("\"Numenor Exchange\"")) readNow = true;
+                if(readNow && line.includes("{")) bracketCount++;
+                else if(readNow && line.includes("}")) bracketCount--;
+                if(readNow && !line.includes("\"Numenor Exchange\"") && bracketCount == 0) readNow = false;
+            
+                if(readNow && !line.includes("\"Numenor Exchange\"") && !line.includes("{") && (line.includes("[\"Name\"]") || line.includes("[\"Qty\"]"))) {
+                    let lineMod = line.split("=")[1].trim();
+                    lineMod = lineMod.substr(0,lineMod.length-1); //Get rid of trailing comma
+                    lineMod = lineMod.replace(/\"/g, ""); //Get rid of ""
+
+                    if(line.includes("[\"Name\"]")) name = lineMod;
+                    else if(line.includes("[\"Qty\"]")) {
+                        qty = lineMod;
+                        entries['/numenor/bank/' + uuid()] = {
+                                "name": name,
+                                "qty": qty,
+                            };
+                    }
+                }
+            });
+            lineReader.on('close', ()=> {
+                return resolve(entries);
+            });
+        });
     },
 
     logOutput: function (dbRecords, exports, entries, duplicates) {

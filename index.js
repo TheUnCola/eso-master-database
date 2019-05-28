@@ -14,7 +14,20 @@ let getAndUpdateData = async function() {
     if(Object.keys(entries).length > 0) await firebase.updateDB(entries);
 };
 
+let updateBank = async function() {
+    let entries = await helper.readBankExport('../../SavedVariables/GuildDataDump.lua');
+
+    console.log(JSON.stringify(entries, null, 2));
+    if(Object.keys(entries).length > 0) await firebase.deleteBankDB();
+    if(Object.keys(entries).length > 0) await firebase.updateDB(entries);
+};
+
 fs.watchFile('../../SavedVariables/DepositExporter.lua', (curr, prev) => {
     console.log('A change was made to DepositExporter');
     getAndUpdateData();
+});
+
+fs.watchFile('../../SavedVariables/GuildDataDump.lua', (curr, prev) => {
+    console.log('A change was made to GuildDataDump');
+    updateBank();
 });

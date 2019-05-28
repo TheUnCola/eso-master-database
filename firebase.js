@@ -35,6 +35,19 @@ let Firebase = {
                 resolve(true);
             });
         });
+    },
+
+    deleteBankDB: function() {
+        let db = this.initializeDB();
+
+        return new Promise(function (resolve, reject) {
+            db.ref("/numenor/bank/").remove((error) => {
+                if(error) console.log(error);
+                console.log("done deleting");
+                firebase.app().delete();
+                resolve(true);
+            });
+        });
     }
 };
 
