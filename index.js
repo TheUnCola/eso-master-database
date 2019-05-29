@@ -3,7 +3,7 @@ let helper = require('./helper.js'),
     fs = require('fs');
 
 let getAndUpdateData = async function() {
-    let exports = await helper.readExport('../../SavedVariables/DepositExporter.lua');
+    let exports = await helper.readDepositExport('../../SavedVariables/DepositExporter.lua');
     let dbRecords = await firebase.getDeposits();
     let dupCheck = helper.checkForDuplicates(exports,dbRecords);
     let entries = dupCheck.entries, duplicates = dupCheck.duplicates;
