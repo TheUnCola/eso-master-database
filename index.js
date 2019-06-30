@@ -27,7 +27,7 @@ fs.watchFile('../../SavedVariables/DepositExporter.lua', (curr, prev) => {
     getAndUpdateData();
 });
 
-fs.watchFile('../../SavedVariables/GuildDataDump.lua', (curr, prev) => {
+/*fs.watchFile('../../SavedVariables/GuildDataDump.lua', (curr, prev) => {
     console.log('A change was made to GuildDataDump');
     updateBank();
-});
+});*/
